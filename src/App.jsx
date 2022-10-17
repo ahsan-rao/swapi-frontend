@@ -1,10 +1,17 @@
 import React from 'react';
 
+import Characters from './components/Characters';
+
+import './index.css';
+
 const App = () => {
+
   return (
-    <>
-      <h1>SWAPI FRONTEND APP</h1>
-    </>
+    <div>
+      <main>
+        <Characters/>
+      </main>
+    </div>
   );
 };
 

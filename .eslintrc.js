@@ -12,8 +12,12 @@ module.exports = {
     jest: true,
     es6: true
   },
+  parserOptions : {
+    sourceType: 'module',
+    ecmaVersion: 6
+  },
   rules: {
-    'arrow-parens': 'off',
+    'arrow-parens': 'on',
     'consistent-return': 'off',
     'func-names': 'off',
     'no-console': 'off',
