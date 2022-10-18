@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import CharacterCard from './CharacterCard';
 import DetailsModal from './DetailsModal';
+import SearchFilter from './SearchFilter'
 
 const Characters = () => {
 
@@ -10,6 +11,10 @@ const Characters = () => {
   const [characters, setCharacters] = useState([]);
   const [planets, setPlanets] = useState([]);
   const [species, setSpecies] = useState([]);
+
+  const [planetSelected, setPlanetSelected] = useState('');
+  const [charSelected, setCharSelected] = useState('');
+
   const [modalState, setModalState] = useState({
     open: false,
     type: null,
@@ -128,6 +133,16 @@ const Characters = () => {
         <header className="pageHeader">
           <h2>STAR WARS</h2>
         </header>
+        <div>
+          <SearchFilter
+          planetSelected = {planetSelected}
+          charSelected = {charSelected}
+          setPlanetSelected  = {setPlanetSelected}
+          setCharSelected = {setCharSelected}
+          planets = {planets}
+          characters = {characters}
+          />
+        </div>
         <div className="charContainer">
         {charElems}
         </div>

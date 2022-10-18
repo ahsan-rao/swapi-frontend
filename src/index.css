@@ -96,6 +96,17 @@ body {
   align-items: center;
 }
 
+.searchContainer {
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5rem;
+}
+
+button {
+  color: #e4e4e4;
+}
+
 /* cards container */
 .charContainer {
   padding: 1rem 3rem;
