@@ -81,6 +81,7 @@ const Characters = () => {
   }
 
   useEffect (() => {
+    if (fetchedChars === true) return;
     fetchData();
   }, [])
 
@@ -102,17 +103,11 @@ const Characters = () => {
     })
   }
 
-    if (!fetchedChars) return (
-      <div className = 'pageHeader'>
-        <h1>Loading data, please wait...</h1>
-      </div>
-    );
+    // if (!characters) return null;
 
-    if (!characters) return null;
-
-    if (!characters.length) return (
-      <div>Sorry, no characters found</div>
-    );
+    // if (!characters.length) return (
+    //   <div>Sorry, no characters found</div>
+    // );
 
 
     const charElems = characters.map((char, i) => {
@@ -128,17 +123,20 @@ const Characters = () => {
     return (
       <section className="mainSection">
         <header className="pageHeader">
-          <h2>STAR WARS</h2>
+         <h1>STAR WARS</h1>
         </header>
         <div>
           <SearchFilter
           planets = {planets}
           characters = {characters}
+          fetchedChars = {fetchedChars}
+          setFetchedChars = {setFetchedChars}
           setCharacters = {setCharacters}
           />
         </div>
         <div className="charContainer">
-        {charElems}
+        { (!characters.length && fetchedChars) ? ( <div>Sorry, no characters found</div> ) : charElems}
+        { (!characters.length && !fetchedChars) ? ( <div>Loading data, please wait...</div> ) : charElems}
         </div>
         {modalState.open &&
           <DetailsModal

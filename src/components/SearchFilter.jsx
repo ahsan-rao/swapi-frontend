@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 const searchFilter = ({
+    fetchedChars,
+    setFetchedChars,
     planets,
     characters,
     setCharacters
@@ -18,6 +20,7 @@ const searchFilter = ({
       };
   
     useEffect(() => {
+    if (fetchedChars === false) return;
     const filtered = filter(characters, type, query);
     setCharacters(filtered);
     }, [query]);
