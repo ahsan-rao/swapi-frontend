@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const searchFilter = ({
-    planetSelected,
-    charSelected,
-    setPlanetSelected,
-    setCharSelected,
     planets,
-    characters
+    characters,
+    setCharacters
 }) => {
-    
-    //const [query, setQuery] = useState("");
-    const [filteredData, setFilteredData] = useState(characters);
+    const [query, setQuery] = useState("");
+    const [type, setType] = useState("");
+    const [planetSelected, setPlanetSelected] = useState("");
+    const [charSelected, setCharSelected] = useState("");
 
     const filter = (characters, type, query) => {
         if (query === "") return characters;
@@ -19,36 +17,34 @@ const searchFilter = ({
         });
       };
   
-    // useEffect(() => {
-    //   const filteredValues = filter(characters, type, query);
-    //   setFilteredData(filteredValues);
-    // }, [query]);
+    useEffect(() => {
+    const filtered = filter(characters, type, query);
+    setCharacters(filtered);
+    }, [query]);
 
   return (
 <div className = 'searchContainer'>
     <div className = 'searchForm'>
-     <form onSubmit = {(e) => {
+     <form value = {planetSelected} onChange = {setPlanetSelected}>
+      <input type="search" id="query" placeholder='Filter for homeworld' 
+      onChange = {(e) => {
           e.preventDefault();
-          const query = e.target.elements.query.value;
-          const results = filter(characters, 'homeworld', query);
-          setFilteredData(results)
-          console.log(results)
-     }}>
-      <input type="search" id="query" placeholder='Filter for homeworld' />
-      <button>Filter</button>
+          setQuery(e.target.value);
+          setType("homeworld")
+     }}/>
+      <button onClick = {() => {setPlanetSelected("")}}>Clear</button>
     </form>
     </div>
 
     <div className = 'searchForm'>
-    <form onSubmit = {(e) => {
-          e.preventDefault();
-          const query = e.target.elements.query.value;
-          const results = filter(characters, 'name', query);
-          setFilteredData(results)
-          console.log(results)
-    }}>
-        <input type="search" id="query" placeholder='Filter for name' />
-        <button>Filter</button>
+    <form value = {charSelected} onChange = {setCharSelected}>
+        <input type="search" id="query" placeholder='Filter for name'
+        onChange = {(e) => {
+            e.preventDefault();
+            setQuery(e.target.value);
+            setType("name");
+      }} />
+        <button onClick = {() => {setCharSelected("")}}>Clear</button>
     </form>
     </div>
 </div>

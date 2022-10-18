@@ -12,9 +12,6 @@ const Characters = () => {
   const [planets, setPlanets] = useState([]);
   const [species, setSpecies] = useState([]);
 
-  const [planetSelected, setPlanetSelected] = useState('');
-  const [charSelected, setCharSelected] = useState('');
-
   const [modalState, setModalState] = useState({
     open: false,
     type: null,
@@ -135,12 +132,9 @@ const Characters = () => {
         </header>
         <div>
           <SearchFilter
-          planetSelected = {planetSelected}
-          charSelected = {charSelected}
-          setPlanetSelected  = {setPlanetSelected}
-          setCharSelected = {setCharSelected}
           planets = {planets}
           characters = {characters}
+          setCharacters = {setCharacters}
           />
         </div>
         <div className="charContainer">
