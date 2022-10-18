@@ -5,12 +5,15 @@ const searchFilter = ({
     setFetchedChars,
     planets,
     characters,
-    setCharacters
+    setCharacters,
+    reset
 }) => {
     const [query, setQuery] = useState("");
     const [type, setType] = useState("");
     const [planetSelected, setPlanetSelected] = useState("");
     const [charSelected, setCharSelected] = useState("");
+    const [planetInput, setPlanetInput] = useState("");
+    const [nameInput, setNameInput] = useState("");
 
     const filter = (characters, type, query) => {
         if (query === "") return characters;
@@ -28,27 +31,31 @@ const searchFilter = ({
   return (
 <div className = 'searchContainer'>
     <div className = 'searchForm'>
-     <form value = {planetSelected} onChange = {setPlanetSelected}>
+     {/* <form value = {planetSelected} onChange = {setPlanetSelected}> */}
       <input type="search" id="query" placeholder='Filter for homeworld' 
+      value = {planetInput}
       onChange = {(e) => {
           e.preventDefault();
+          setPlanetInput(e.target.value);
           setQuery(e.target.value);
           setType("homeworld")
      }}/>
-      <button onClick = {() => {setPlanetSelected("")}}>Clear</button>
-    </form>
+      <button onClick = {() =>{setPlanetInput(''); reset()} }>Clear</button>
+    {/* </form> */}
     </div>
 
     <div className = 'searchForm'>
-    <form value = {charSelected} onChange = {setCharSelected}>
+    {/* <form value = {charSelected} onChange = {setCharSelected}> */}
         <input type="search" id="query" placeholder='Filter for name'
+        value = {nameInput}
         onChange = {(e) => {
             e.preventDefault();
+            setNameInput(e.target.value);
             setQuery(e.target.value);
             setType("name");
       }} />
-        <button onClick = {() => {setCharSelected("")}}>Clear</button>
-    </form>
+        <button onClick = {() =>{setNameInput(''); reset()} }>Clear</button>
+    {/* </form> */}
     </div>
 </div>
   );

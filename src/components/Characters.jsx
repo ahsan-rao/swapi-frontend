@@ -9,6 +9,7 @@ const Characters = () => {
 
   const [fetchedChars, setFetchedChars] = useState(false);
   const [characters, setCharacters] = useState([]);
+  const [charactersOrg, setCharactersOrg] = useState([]);
   const [planets, setPlanets] = useState([]);
   const [species, setSpecies] = useState([]);
 
@@ -18,6 +19,10 @@ const Characters = () => {
     position: { top: 0, left: 0 },
     id: null
   })
+
+  const reset = () => {
+    setCharacters(charactersOrg);
+  }
 
   const fetchData = async () => {
     let charPage = 1;
@@ -75,6 +80,7 @@ const Characters = () => {
     })
 
     setCharacters(charData);
+    setCharactersOrg(charData);
     setPlanets(planetData);
     setSpecies(speciesData);
     setFetchedChars(true);
@@ -103,12 +109,6 @@ const Characters = () => {
     })
   }
 
-    // if (!characters) return null;
-
-    // if (!characters.length) return (
-    //   <div>Sorry, no characters found</div>
-    // );
-
 
     const charElems = characters.map((char, i) => {
         return (
@@ -132,11 +132,13 @@ const Characters = () => {
           fetchedChars = {fetchedChars}
           setFetchedChars = {setFetchedChars}
           setCharacters = {setCharacters}
+          reset = {reset}
           />
         </div>
         <div className="charContainer">
-        { (!characters.length && fetchedChars) ? ( <div>Sorry, no characters found</div> ) : charElems}
-        { (!characters.length && !fetchedChars) ? ( <div>Loading data, please wait...</div> ) : charElems}
+        {/* { (!characters.length && fetchedChars) ? ( <div>Sorry, no characters found</div> ) : charElems} */}
+        {/* { (characters.length) ? ( charElems  ) : <div>Loading data, please wait...</div>} */}
+        {fetchedChars ? (characters.length ? charElems : "Sorry, no characters found!") : "Loading data, please wait..."}
         </div>
         {modalState.open &&
           <DetailsModal
