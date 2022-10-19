@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import Combobox from 'react-widgets/Combobox';
+import "react-widgets/styles.css";
 
 const searchFilter = ({
     fetchedChars,
@@ -6,7 +8,8 @@ const searchFilter = ({
     planets,
     characters,
     setCharacters,
-    reset
+    reset,
+    charactersOrg
 }) => {
     const [query, setQuery] = useState("");
     const [type, setType] = useState("");
@@ -21,41 +24,68 @@ const searchFilter = ({
         return data[type].toLowerCase().includes(query.toLowerCase())
         });
       };
-  
+
+    const planetNames = planets.map(planet =>{
+      return planet.name;
+    })
+
+    const charNames = characters.map(char => {
+      return char.name;
+    })
+
     useEffect(() => {
-    if (fetchedChars === false) return;
-    const filtered = filter(characters, type, query);
-    setCharacters(filtered);
-    }, [query]);
+      if (!planetInput && !nameInput) reset();
+      else {
+        let tmp = filter(charactersOrg, 'homeworld', planetInput);
+        tmp = filter(tmp, 'name', nameInput);
+        setCharacters(tmp)
+      }
+    }, [planetInput, nameInput])
+
+    // useEffect(() => {
+    // if (fetchedChars === false) return;
+    // const filtered = filter(charactersOrg, type, query);
+    // setCharacters(filtered);
+    // }, [query]);
 
   return (
 <div className = 'searchContainer'>
     <div className = 'searchForm'>
-     {/* <form value = {planetSelected} onChange = {setPlanetSelected}> */}
-      <input type="search" id="query" placeholder='Filter for homeworld' 
+      <Combobox
+      placeholder="Filter by homeworld"
+      data = {planetNames}
       value = {planetInput}
-      onChange = {(e) => {
-          e.preventDefault();
-          setPlanetInput(e.target.value);
-          setQuery(e.target.value);
+      onChange = {(value) => {
+          setPlanetInput(value);
+          setQuery(value);
           setType("homeworld")
      }}/>
-      <button onClick = {() =>{setPlanetInput(''); reset()} }>Clear</button>
-    {/* </form> */}
+      <button onClick = {() =>
+        {
+        setPlanetInput(''); 
+        if (planetInput || nameInput) {
+          let tmp = filter(charactersOrg, 'name', nameInput);
+          setCharacters(tmp);
+        }}}>Clear</button>
     </div>
 
     <div className = 'searchForm'>
-    {/* <form value = {charSelected} onChange = {setCharSelected}> */}
-        <input type="search" id="query" placeholder='Filter for name'
-        value = {nameInput}
-        onChange = {(e) => {
-            e.preventDefault();
-            setNameInput(e.target.value);
-            setQuery(e.target.value);
-            setType("name");
-      }} />
-        <button onClick = {() =>{setNameInput(''); reset()} }>Clear</button>
-    {/* </form> */}
+      <Combobox
+      placeholder="Filter by name"
+      data = {charNames}
+      value = {nameInput}
+      onChange = {(value) => {
+          setNameInput(value);
+          setQuery(value);
+          setType("name")
+     }}/>
+      <button onClick = {() =>
+        {
+          setNameInput('');
+          if (planetInput || nameInput) {
+            let tmp = filter(charactersOrg, 'homeworld', planetInput);
+            setCharacters(tmp);
+            }}}>Clear</button>
     </div>
 </div>
   );

@@ -23,11 +23,14 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "axios": "^0.27.2",
+    "fuse.js": "^6.6.2",
     "nodemon": "^2.0.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
+    "react-widgets": "^5.8.4",
     "sass": "^1.55.0",
+    "throttle-debounce": "^5.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

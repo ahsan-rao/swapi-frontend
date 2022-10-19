@@ -1,55 +1,72 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import { render, screen, waitFor} from '@testing-library/react';
+import { render, screen, waitFor, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
 import Characters from '../src/components/Characters';
+import axios from 'axios';
+
 
 describe('Characters', () => {
-  it('Verify page title', async () => {
-    render(<Characters />);
 
-    await waitFor(() => expect(screen.findByText('STAR WARS')).toBeInTheDocument())
+  beforeAll(async () => {
+    waitFor(()=> render(<Characters characters/>))
+  })
+
+  it('Verify page title', async () => {
+    waitFor(() => expect(screen.findByText('STAR WARS')).toBeInTheDocument());
   });
 
   it('Verify all characters loaded', async () => {
-    render(<Characters />);
-
-    await waitFor(() => expect(screen.findByText('Luke Skywalker')).toBeInTheDocument())
-    await waitFor(() => expect(screen.findByText('Tion Medon')).toBeInTheDocument())
+    waitFor(() => expect(screen.findByText('Luke Skywalker')).toBeInTheDocument())
+    waitFor(() => expect(screen.findByText('Tion Medon')).toBeInTheDocument())
   });
 });
 
-xdescribe('SearchFilter', () => {
-  it('Verify homeworld filter works', async () => {
-    render(<SearchFilter />);
+describe('SearchFilter', () => {
 
-    //await waitFor(() => expect(screen.getByText('STAR WARS')).toBeInTheDocument())
+  beforeAll(async () => {
+    waitFor(()=> render(<Characters/>))
+  })
+
+  it('Verify homeworld filter works', async () => {
+
+    const planetInput = screen.getByPlaceholderText('Filter for homeworld');
+
+    fireEvent.change(planetInput, { target: { value: 'Tatooine' } });
+
+    waitFor(() => expect(planetInput.value).toBe('tatooine'));
   });
 
   it('Verify name filter works', async () => {
-    render(<SearchFilter />);
+
+    const nameInput = screen.getByPlaceholderText('Filter for name');
+
+    fireEvent.change(nameInput, { target: { value: 'Luke' } });
+
+    expect(nameInput.value).toBe('Luke');
+
+    waitFor(() => expect(nameInput.value).toBe('Luke'));
+  });
+
+  xit('Verify both filters work together', async () => {
 
     //await waitFor(() => expect(screen.getByText('Luke Skywalker')).toBeInTheDocument())
     //await waitFor(() => expect(screen.getByText('Tion Medon')).toBeInTheDocument())
   });
 
-  it('Verify both filters work together', async () => {
-    render(<SearchFilter />);
+  it('Verify if the clear button is rendered', async () => {
+
+    waitFor(() => expect(screen.getByRole('button', { name: /Clear/i })).toBeInTheDocument());
+});
+
+  xit('Verify clear homeworld filter works', async () => {
 
     //await waitFor(() => expect(screen.getByText('Luke Skywalker')).toBeInTheDocument())
     //await waitFor(() => expect(screen.getByText('Tion Medon')).toBeInTheDocument())
   });
 
-  it('Verify clear homeworld filter works', async () => {
-    render(<SearchFilter />);
-
-    //await waitFor(() => expect(screen.getByText('Luke Skywalker')).toBeInTheDocument())
-    //await waitFor(() => expect(screen.getByText('Tion Medon')).toBeInTheDocument())
-  });
-
-  it('Verify clear name filter works', async () => {
-    render(<SearchFilter />);
+  xit('Verify clear name filter works', async () => {
 
     //await waitFor(() => expect(screen.getByText('Luke Skywalker')).toBeInTheDocument())
     //await waitFor(() => expect(screen.getByText('Tion Medon')).toBeInTheDocument())

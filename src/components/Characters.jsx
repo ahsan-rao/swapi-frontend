@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import CharacterCard from './CharacterCard';
 import DetailsModal from './DetailsModal';
-import SearchFilter from './SearchFilter'
+import SearchFilter from './SearchFilter';
 
 const Characters = () => {
 
@@ -21,6 +21,7 @@ const Characters = () => {
   })
 
   const reset = () => {
+    console.log('entered reset')
     setCharacters(charactersOrg);
   }
 
@@ -119,7 +120,7 @@ const Characters = () => {
         />
         )
     });
-
+  
     return (
       <section className="mainSection">
         <header className="pageHeader">
@@ -133,6 +134,7 @@ const Characters = () => {
           setFetchedChars = {setFetchedChars}
           setCharacters = {setCharacters}
           reset = {reset}
+          charactersOrg = {charactersOrg}
           />
         </div>
         <div className="charContainer">
