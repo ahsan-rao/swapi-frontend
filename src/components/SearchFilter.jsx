@@ -3,8 +3,6 @@ import Combobox from 'react-widgets/Combobox';
 import "react-widgets/styles.css";
 
 const searchFilter = ({
-    fetchedChars,
-    setFetchedChars,
     planets,
     characters,
     setCharacters,
@@ -13,8 +11,6 @@ const searchFilter = ({
 }) => {
     const [query, setQuery] = useState("");
     const [type, setType] = useState("");
-    const [planetSelected, setPlanetSelected] = useState("");
-    const [charSelected, setCharSelected] = useState("");
     const [planetInput, setPlanetInput] = useState("");
     const [nameInput, setNameInput] = useState("");
 
@@ -42,11 +38,6 @@ const searchFilter = ({
       }
     }, [planetInput, nameInput])
 
-    // useEffect(() => {
-    // if (fetchedChars === false) return;
-    // const filtered = filter(charactersOrg, type, query);
-    // setCharacters(filtered);
-    // }, [query]);
 
   return (
 <div className = 'searchContainer'>

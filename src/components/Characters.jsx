@@ -21,7 +21,6 @@ const Characters = () => {
   })
 
   const reset = () => {
-    console.log('entered reset')
     setCharacters(charactersOrg);
   }
 
@@ -130,16 +129,12 @@ const Characters = () => {
           <SearchFilter
           planets = {planets}
           characters = {characters}
-          fetchedChars = {fetchedChars}
-          setFetchedChars = {setFetchedChars}
           setCharacters = {setCharacters}
           reset = {reset}
           charactersOrg = {charactersOrg}
           />
         </div>
         <div className="charContainer">
-        {/* { (!characters.length && fetchedChars) ? ( <div>Sorry, no characters found</div> ) : charElems} */}
-        {/* { (characters.length) ? ( charElems  ) : <div>Loading data, please wait...</div>} */}
         {fetchedChars ? (characters.length ? charElems : "Sorry, no characters found!") : "Loading data, please wait..."}
         </div>
         {modalState.open &&
