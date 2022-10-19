@@ -5,10 +5,13 @@ import CharacterCard from './CharacterCard';
 import DetailsModal from './DetailsModal';
 import SearchFilter from './SearchFilter';
 
+//component rendering the container for the cards
 const Characters = () => {
-
+  //fetchedChars keeps track of whether the fetch has been completed yet or not
   const [fetchedChars, setFetchedChars] = useState(false);
   const [characters, setCharacters] = useState([]);
+
+  //storing a copy of the characters from the fetch used for filtering in SearchFilter
   const [charactersOrg, setCharactersOrg] = useState([]);
   const [planets, setPlanets] = useState([]);
   const [species, setSpecies] = useState([]);
@@ -24,6 +27,7 @@ const Characters = () => {
     setCharacters(charactersOrg);
   }
 
+  //fetching the data once upon mounting of component and saving it to state. Using pagination to access data from all pages of each endpoint.
   const fetchData = async () => {
     let charPage = 1;
     let charPages = 9;
@@ -64,6 +68,7 @@ const Characters = () => {
         speciesPage++
     }
 
+    //replacing the homeworld and species urls in characters with their respective names
     charData = charData.map(char => {
         const homeworld = planetData.find(
             (planet) => planet.url === char.homeworld
@@ -109,7 +114,7 @@ const Characters = () => {
     })
   }
 
-
+    //rendering individual card for each element of the characters array
     const charElems = characters.map((char, i) => {
         return (
         <CharacterCard

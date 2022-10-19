@@ -2,12 +2,15 @@ import React from 'react';
 import { FontAwesomeIcon as FAIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const SpeciesModal = ({ type, position, id, closeModal, species, planets }) => {
+//component for the species and homeworld modal data
+const DetailsModal = ({ type, position, id, closeModal, species, planets }) => {
 
+//retrieving the details of the selected species
 let selSpecies = species.find(
     (sp) => sp.name === id
 );
 
+//retrieving the details of the selected planet
 let selPlanet = planets.find(
     (planet) => planet.name === id
 );
@@ -57,4 +60,4 @@ let selPlanet = planets.find(
   }
 };
 
-export default SpeciesModal;
+export default DetailsModal;

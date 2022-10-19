@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Combobox from 'react-widgets/Combobox';
-import "react-widgets/styles.css";
 
+//component to implement search/filter functionality
 const searchFilter = ({
     planets,
     characters,
@@ -14,6 +14,7 @@ const searchFilter = ({
     const [planetInput, setPlanetInput] = useState("");
     const [nameInput, setNameInput] = useState("");
 
+    // dynamic filter function utilized for both homeworld and name
     const filter = (characters, type, query) => {
         if (query === "") return characters;
         return characters.filter((data) => {
@@ -21,14 +22,17 @@ const searchFilter = ({
         });
       };
 
+    // planet names to be used for the filter dropdown list
     const planetNames = planets.map(planet =>{
       return planet.name;
-    })
+    }).sort();
 
+    // character names to be used for the filter dropdown list
     const charNames = characters.map(char => {
       return char.name;
-    })
+    }).sort();
 
+    //updating the characters array based on any change in the planet or name input fields
     useEffect(() => {
       if (!planetInput && !nameInput) reset();
       else {
@@ -43,7 +47,8 @@ const searchFilter = ({
 <div className = 'searchContainer'>
     <div className = 'searchForm'>
       <Combobox
-      placeholder="Filter by homeworld"
+      aria-label = "Filter by homeworld" 
+      placeholder = "Filter by homeworld"
       data = {planetNames}
       value = {planetInput}
       onChange = {(value) => {
@@ -51,18 +56,24 @@ const searchFilter = ({
           setQuery(value);
           setType("homeworld")
      }}/>
-      <button onClick = {() =>
+      <button 
+      aria-label = "clear homeworld filter" 
+      data-testid = "clear-homeworld-filter-button"
+      onClick = {() =>
         {
         setPlanetInput(''); 
         if (planetInput || nameInput) {
           let tmp = filter(charactersOrg, 'name', nameInput);
           setCharacters(tmp);
-        }}}>Clear</button>
+        }}}>
+          Clear
+      </button>
     </div>
 
     <div className = 'searchForm'>
       <Combobox
-      placeholder="Filter by name"
+      aria-label = "Filter by name" 
+      placeholder = "Filter by name"
       data = {charNames}
       value = {nameInput}
       onChange = {(value) => {
@@ -70,13 +81,18 @@ const searchFilter = ({
           setQuery(value);
           setType("name")
      }}/>
-      <button onClick = {() =>
-        {
+      <button 
+      aria-label = "clear name filter" 
+      data-testid = "clear-name-filter-button"
+      onClick = {() =>
+          {
           setNameInput('');
           if (planetInput || nameInput) {
             let tmp = filter(charactersOrg, 'homeworld', planetInput);
             setCharacters(tmp);
-            }}}>Clear</button>
+            }}}>
+              Clear
+      </button>
     </div>
 </div>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon as FAIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
+//component rendering each individual character card
 const CharacterCard = ({
   info, openModal
 }) => {
